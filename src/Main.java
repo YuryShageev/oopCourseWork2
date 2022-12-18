@@ -13,11 +13,17 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Hi");
+
+        //Testing
         Task task = new Task("Купить хлеба", "Нужно выйти из дома и зайти в пятёрочку", "Личная задача", SINGLE);
         Task task1 = new Task("Купить воды", "Нужно выйти из дома и зайти в пятёрочку", "Личная задача", WEEKLY);
         System.out.println(task.getId());
         System.out.println(task1.getId());
 
+        System.out.println(task.getRepetition());
+
+
+        //Scanner
 
         try (Scanner scanner = new Scanner(System.in)) {
             label:
