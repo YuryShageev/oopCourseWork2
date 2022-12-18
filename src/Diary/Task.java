@@ -99,6 +99,6 @@ public class Task {
 
     @Override
     public int hashCode() {
-        return Objects.hash(repetition, id);
+        return Objects.hash(repetition, id, heading);
     }
 }
