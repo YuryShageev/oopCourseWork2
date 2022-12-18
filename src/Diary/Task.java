@@ -72,10 +72,10 @@ public class Task {
     //Validators
 
     public String validateLines(String value) {
-        if (value != null || !value.isBlank() || !value.isEmpty()) {
-            return value;
-        } else {
+        if (value == null && value.isBlank() && value.isEmpty()) {
             throw new UnsupportedOperationException("Не все данные заполнены");
+        } else {
+            return value;
         }
     }
 
