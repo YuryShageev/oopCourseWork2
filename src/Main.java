@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import static Diary.ConstantInfo.SINGLE;
+import static Diary.ConstantInfo.WEEKLY;
 
 
 public class Main {
@@ -13,7 +14,10 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Hi");
         Task task = new Task("Купить хлеба", "Нужно выйти из дома и зайти в пятёрочку", "Личная задача", SINGLE);
-        System.out.println(task);
+        Task task1 = new Task("Купить воды", "Нужно выйти из дома и зайти в пятёрочку", "Личная задача", WEEKLY);
+        System.out.println(task.getId());
+        System.out.println(task1.getId());
+
 
         try (Scanner scanner = new Scanner(System.in)) {
             label:

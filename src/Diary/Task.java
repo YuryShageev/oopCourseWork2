@@ -1,6 +1,7 @@
 package Diary;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Task {
 
@@ -9,7 +10,9 @@ public class Task {
     private String type;
     private ConstantInfo repetition;
     private LocalDateTime localDateTime;
-    private Integer id = 0;
+
+    private static int counter;
+    private final Integer id;
 
     public Task(String heading, String description, String type, ConstantInfo repetition) {
 
@@ -18,7 +21,7 @@ public class Task {
         this.type = validateLines(type);
         this.repetition = repetition;
         this.localDateTime = LocalDateTime.now();
-        ++id;
+        this.id = ++counter;
     }
 
 
@@ -84,5 +87,18 @@ public class Task {
         return "Задача: " + heading + ", для этого нужно: " + description + ", тип задачи: " +
                 type + ", как часто повторяется: " + repetition.getRepeatIndex() +
                 ", дата создания задачи: " + localDateTime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return heading.equals(task.heading) && type.equals(task.type) && repetition == task.repetition && id.equals(task.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(repetition, id);
     }
 }
