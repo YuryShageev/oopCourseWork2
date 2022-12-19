@@ -82,6 +82,8 @@ public class Task {
         }
     }
 
+
+
     @Override
     public String toString() {
         return "Задача: " + heading + ", для этого нужно: " + description + ", тип задачи: " +

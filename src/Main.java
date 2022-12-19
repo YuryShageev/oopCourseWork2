@@ -2,6 +2,7 @@ import Diary.ConstantInfo;
 import Diary.Task;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -10,17 +11,19 @@ import static Diary.ConstantInfo.WEEKLY;
 
 
 public class Main {
+    Map<Integer, List<Task>> task = new HashMap<>();
+
 
     public static void main(String[] args) {
         System.out.println("Hi");
 
         //Testing
-        Task task = new Task("Купить хлеба", "Нужно выйти из дома и зайти в пятёрочку", "Личная задача", SINGLE);
-        Task task1 = new Task("Купить воды", "Нужно выйти из дома и зайти в пятёрочку", "Личная задача", WEEKLY);
-        System.out.println(task.getId());
-        System.out.println(task1.getId());
-
-        System.out.println(task.getRepetition());
+//        Task task = new Task("Купить хлеба", "Нужно выйти из дома и зайти в пятёрочку", "Личная задача", SINGLE);
+//        Task task1 = new Task("Купить воды", "Нужно выйти из дома и зайти в пятёрочку", "Личная задача", WEEKLY);
+//        System.out.println(task.getId());
+//        System.out.println(task1.getId());
+//
+//        System.out.println(task.getRepetition());
 
 
         //Scanner
@@ -56,13 +59,28 @@ public class Main {
     private static void inputTask(Scanner scanner) {
         System.out.print("Введите название задачи: ");
         String taskName = scanner.next();
+        System.out.println("Введите описание задачи: ");
+        String description = scanner.next();
+        System.out.println("Введите тип задания 'личная' или 'рабочая': ");
+        String taskType = scanner.next();
+        System.out.println("Введите частоту повторения заглавными латинскими буквами: ");
         // todo
     }
 
+//    private static String inputDescription(Scanner scanner) {
+//        System.out.println("Введите описание задачи");
+//        String description = scanner.next();
+//        return description;
+//    }
+
     private static void printMenu() {
         System.out.println(
-                1 + "Добавить задачу " + 2 + "Удалить задачу  " + 3 + "Получить задачу на указанный день " +
+                1 + "Добавить задачу " + "\n" +
+                        2 + "Удалить задачу  " + "\n" +
+                        3 + "Получить задачу на указанный день " + "\n" +
                         0 + "Выход"
         );
     }
+
+
 }
