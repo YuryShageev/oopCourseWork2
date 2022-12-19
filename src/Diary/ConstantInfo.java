@@ -1,19 +1,19 @@
 package Diary;
 
 public enum ConstantInfo {
-    SINGLE("Однократно"),
-    DAILY("Ежедневно"),
-    WEEKLY("Еженедельно"),
-    MONTHLY("Ежемесячно"),
-    ANNUALLY("Ежегодно");
+    SINGLE(0),
+    DAILY(+1),
+    WEEKLY(+7),
+    MONTHLY(+30),
+    ANNUALLY(+365);
 
-    private String repeatIndex;
+    private int repeatIndex;
 
-    ConstantInfo(String repeatIndex) {
+    ConstantInfo(int repeatIndex) {
         this.repeatIndex = repeatIndex;
     }
 
-    public String getRepeatIndex() {
+    public int getRepeatIndex() {
         return repeatIndex;
     }
 
