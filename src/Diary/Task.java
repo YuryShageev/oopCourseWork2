@@ -1,6 +1,8 @@
 package Diary;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 public class Task {
@@ -9,18 +11,18 @@ public class Task {
     private String description;
     private String type;
     private ConstantInfo repetition;
-    private LocalDateTime localDateTime;
+    private LocalDate localDate;
 
     private static int counter;
     private final Integer id;
 
-    public Task(String heading, String description, String type, ConstantInfo repetition) {
+    public Task(String heading, String description, String type, ConstantInfo repetition, LocalDate localDate) {
 
         this.heading = validateLines(heading);
         this.description = validateLines(description);
         this.type = validateLines(type);
         this.repetition = repetition;
-        this.localDateTime = LocalDateTime.now();
+        this.localDate = localDate;
         this.id = ++counter;
     }
 
@@ -44,12 +46,12 @@ public class Task {
         this.description = description;
     }
 
-    public LocalDateTime getLocalDateTime() {
-        return localDateTime;
+    public LocalDate getLocalDate() {
+        return localDate;
     }
 
-    public void setLocalDateTime(LocalDateTime localDateTime) {
-        this.localDateTime = localDateTime;
+    public void setLocalDate(LocalDate localDate) {
+        this.localDate = localDate;
     }
 
     public Integer getId() {
@@ -82,13 +84,21 @@ public class Task {
         }
     }
 
+    public List<LocalDate> validateTime(List<LocalDate> localDate) {
+        for (int i = 0; i < localDate.size(); i++) {
+            localDate = Collections.singletonList(LocalDate.now());
+
+        }
+        return localDate;
+    }
+
 
 
     @Override
     public String toString() {
-        return "Задача: " + heading + ", для этого нужно: " + description + ", тип задачи: " +
+        return  id + "Задача: " + heading + ", для этого нужно: " + description + ", тип задачи: " +
                 type + ", как часто повторяется: " + repetition.getRepeatIndex() +
-                ", дата создания задачи: " + localDateTime;
+                ", дата создания задачи: " + localDate;
     }
 
     @Override
@@ -96,7 +106,7 @@ public class Task {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return heading.equals(task.heading) && type.equals(task.type) && repetition == task.repetition && id.equals(task.id);
+        return  heading.equals(task.heading) && type.equals(task.type) && repetition == task.repetition && id.equals(task.id);
     }
 
     @Override

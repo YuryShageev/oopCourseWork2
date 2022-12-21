@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public interface Methods{
 
-    void setRepetition(Scanner scanner);
+    ConstantInfo setRepetition(Scanner scanner);
 
     String inputTask(Scanner scanner);
 
