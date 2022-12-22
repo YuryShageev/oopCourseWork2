@@ -1,15 +1,8 @@
-import Diary.ConstantInfo;
-import Diary.Service;
-import Diary.Task;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import Diary.Service;
+
 import java.util.Scanner;
 
-import static Diary.ConstantInfo.SINGLE;
-import static Diary.ConstantInfo.WEEKLY;
-import static Diary.Service.fillInTask;
 
 
 public class Main {
@@ -31,7 +24,7 @@ public class Main {
                     int menu = scanner.nextInt();
                     switch (menu) {
                         case 1:
-                            fillInTask(scanner);
+                            service.fillInTask(scanner);
                             break;
                         case 2:
                             // todo: обрабатываем пункт меню 2

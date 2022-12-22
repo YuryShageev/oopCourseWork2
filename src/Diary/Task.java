@@ -96,7 +96,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return  id + "Задача: " + heading + ", для этого нужно: " + description + ", тип задачи: " +
+        return  id + " Задача: " + heading + ", для этого нужно: " + description + ", тип задачи: " +
                 type + ", как часто повторяется: " + repetition.getRepeatIndex() +
                 ", дата создания задачи: " + localDate;
     }
