@@ -27,10 +27,12 @@ public class Main {
                             service.fillInTask(scanner);
                             break;
                         case 2:
-                            // todo: обрабатываем пункт меню 2
+                            service.removeTask(scanner);
+
                             break;
                         case 3:
-                            // todo: обрабатываем пункт меню 3
+                            service.obtainTask(scanner);
+
                             break;
                         case 0:
                             break label;

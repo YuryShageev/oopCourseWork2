@@ -1,14 +1,11 @@
 package Diary;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.Month;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.*;
 
 public class Service {
     private final Map<Integer, Task> tasks;
+    private ConstantInfo repetitionForDate;
 
     public Service() {
         tasks = new HashMap<>();
@@ -20,15 +17,15 @@ public class Service {
         String description = inputDescription(scanner);
         String type = chooseType(scanner);
         ConstantInfo repetition = setRepetition(scanner);
-        LocalDate localDate = LocalDate.now();
-        if (repetition == ConstantInfo.SINGLE) {
-            localDate = LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("dd.MM.yyy"));
-        } else {
-            throw new DateTimeException("Введите дату в формате день.МЕСЯЦ.год");
-        }
+        LocalDate localDate = inputDate(scanner);
         Task task = new Task(taskName, description, type, repetition, localDate);
         tasks.put(task.getId(), task);
         System.out.println(task);
+        if (tasks.containsValue(task)) {
+            System.out.println("Задача добавлена");
+        } else {
+            throw new RuntimeException("Задача не добавлена");
+        }
     }
 
     //Методы для первого пункта меню - Добавить задачу
@@ -97,17 +94,17 @@ public class Service {
         return constantValue;
     }
 
-//    public static LocalDate obtainDate(Scanner scanner) {
-//        System.out.println("Введите год события: ");
-//        int year = scanner.nextInt();
-//        System.out.println("Введите номер месяца события: ");
-//        int month = scanner.nextInt();
-//        System.out.println("Введите дату события: ");
-//        int day = scanner.nextInt();
-//        System.out.println();
-//        LocalDate localDate = LocalDate.of(year, month, day);
-//        return localDate;
-//    }
+    public static LocalDate inputDate(Scanner scanner) {
+        System.out.println("Введите год события: ");
+        int year = scanner.nextInt();
+        System.out.println("Введите номер месяца события: ");
+        int month = scanner.nextInt();
+        System.out.println("Введите дату события: ");
+        int day = scanner.nextInt();
+        System.out.println();
+        LocalDate localDate = LocalDate.of(year, month, day);
+        return localDate;
+    }
 
     //Menus
     public static void printTypeMenu() {
@@ -123,4 +120,106 @@ public class Service {
                         0 + ". Выход"
         );
     }
+
+    //Методы для получения задачи
+    public void obtainTask(Scanner scanner) {
+        System.out.println("Введите год события: ");
+        int year = scanner.nextInt();
+        System.out.println("Введите номер месяца события: ");
+        int month = scanner.nextInt();
+        System.out.println("Введите дату события: ");
+        int day = scanner.nextInt();
+        LocalDate indicatedDate = LocalDate.of(year, month, day);
+        for (Map.Entry<Integer, Task> looper : tasks.entrySet()) {
+            Task currentTask = looper.getValue();
+            LocalDate taskDate = currentTask.getLocalDate();
+            taskDate = understandRepetition(currentTask, indicatedDate);
+            currentTask.setLocalDate(taskDate);
+//            if (currentTask.getLocalDate().equals(indicatedDate)) {
+//                currentTask;
+//            } else {
+//                System.out.println("В этот день задач нет");
+//            }
+            System.out.println(currentTask);
+        }
+    }
+
+    public static LocalDate understandRepetition(Task task, LocalDate date) {
+        LocalDate gettingDate = LocalDate.now();
+        if (task.getRepetition().equals(ConstantInfo.DAILY)) {
+            if (task.getLocalDate().isBefore(date)) {
+                gettingDate = task.getLocalDate().plusDays(1);
+            } else if (task.getLocalDate().isAfter(date)) {
+                gettingDate = task.getLocalDate().minusDays(1);
+            } else if (task.getLocalDate().equals(date)) {
+                gettingDate = date;
+            }
+        }
+
+        if (task.getRepetition().equals(ConstantInfo.WEEKLY)) {
+            if (task.getLocalDate().isBefore(date)) {
+                gettingDate = task.getLocalDate().plusDays(7);
+            } else if (task.getLocalDate().isAfter(date)) {
+                gettingDate = task.getLocalDate().minusDays(7);
+            } else if (task.getLocalDate().equals(date)) {
+                gettingDate = date;
+            }
+        }
+
+        if (task.getRepetition().equals(ConstantInfo.MONTHLY)) {
+            if (task.getLocalDate().isBefore(date)) {
+                gettingDate = task.getLocalDate().plusMonths(1);
+            } else if (task.getLocalDate().isAfter(date)) {
+                gettingDate = task.getLocalDate().minusMonths(1);
+            } else if (task.getLocalDate().equals(date)) {
+                gettingDate = date;
+            }
+        }
+
+        if (task.getRepetition().equals(ConstantInfo.ANNUALLY)) {
+            if (task.getLocalDate().isBefore(date)) {
+                gettingDate = task.getLocalDate().plusYears(1);
+            } else if (task.getLocalDate().isAfter(date)) {
+                gettingDate = task.getLocalDate().minusYears(1);
+            } else if (task.getLocalDate().equals(date)) {
+                gettingDate = date;
+            }
+        }
+
+        if (task.getRepetition().equals(ConstantInfo.SINGLE)) {
+            gettingDate = date;
+        }
+
+        return gettingDate;
+    }
+
+//    public Task obtainTask(LocalDate localDate) {
+//        System.out.println("Введите дату: ");
+//        int digit = 1;
+//        for (Map.Entry<Integer, Task> looper : tasks.entrySet()) {
+//            Task currentTask = looper.getValue();
+//            LocalDate taskDate = currentTask.getLocalDate();
+//            if (localDate.equals(taskDate)) {
+//                return currentTask;
+//            }
+//
+//        }
+//        return null;
+//    }
+
+
+    //Методы удаления задачи
+
+    public void removeTask(Scanner scanner) {
+        System.out.println("Введите номер задачи");
+        Integer removeId = scanner.nextInt();
+        for (Map.Entry<Integer, Task> looper : tasks.entrySet()) {
+            if (Objects.equals(looper.getKey(), removeId)) {
+                tasks.remove(looper.getKey());
+            } else {
+                System.out.println("Нечего удалять");
+            }
+        }
+    }
 }
+

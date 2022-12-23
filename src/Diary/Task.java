@@ -1,8 +1,7 @@
 package Diary;
 
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.List;
+
 import java.util.Objects;
 
 public class Task {
@@ -35,7 +34,12 @@ public class Task {
     }
 
     public void setHeading(String heading) {
-        this.heading = heading;
+        if (heading != null && !heading.isBlank() && !heading.isEmpty()) {
+            throw new UnsupportedOperationException("Не все данные заполнены");
+        } else {
+            this.heading = heading;
+        }
+
     }
 
     public String getDescription() {
@@ -43,7 +47,12 @@ public class Task {
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        if (description != null && !description.isBlank() && !description.isEmpty()) {
+            throw new UnsupportedOperationException("Не все данные заполнены");
+        } else {
+            this.description = description;
+        }
+
     }
 
     public LocalDate getLocalDate() {
@@ -51,7 +60,11 @@ public class Task {
     }
 
     public void setLocalDate(LocalDate localDate) {
-        this.localDate = localDate;
+        if (localDate != null) {
+            this.localDate = localDate;
+        } else {
+            throw new RuntimeException("Время не указано");
+        }
     }
 
     public Integer getId() {
@@ -63,7 +76,12 @@ public class Task {
     }
 
     public void setType(String type) {
-        this.type = type;
+        if (type != null && !type.isBlank() && !type.isEmpty()) {
+            throw new UnsupportedOperationException("Не все данные заполнены");
+        } else {
+            this.type = type;
+        }
+
     }
 
     public ConstantInfo getRepetition() {
@@ -71,26 +89,24 @@ public class Task {
     }
 
     public void setRepetition(ConstantInfo repetition) {
-        this.repetition = repetition;
+        if (repetition == null) {
+            throw new UnsupportedOperationException("Не все данные заполнены");
+        } else {
+            this.repetition = repetition;
+        }
+
     }
 
     //Validators
 
     public String validateLines(String value) {
-        if (value == null && value.isBlank() && value.isEmpty()) {
+        if (value != null && !value.isBlank() && !value.isEmpty()) {
             throw new UnsupportedOperationException("Не все данные заполнены");
         } else {
             return value;
         }
     }
 
-    public List<LocalDate> validateTime(List<LocalDate> localDate) {
-        for (int i = 0; i < localDate.size(); i++) {
-            localDate = Collections.singletonList(LocalDate.now());
-
-        }
-        return localDate;
-    }
 
 
 
